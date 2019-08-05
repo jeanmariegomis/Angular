@@ -78,31 +78,32 @@ class EntrepriseController extends AbstractController
      */
 
 
-    public function depot(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
-
-
+    public function depot (Request $request, UserInterface $Userconnecte) // UserInterface permette de recuperer l'utilisateur actuellement connecté
     {
-         $values = json_decode($request->getContent());
+        $depot = new Depot();//creation d'un objet de type depot
+       
+            $values = json_decode($request->getContent());
+            $repo = $this->getDoctrine()->getRepository(Compte::class);// recupere le repository compte
+            $compte = $repo->findOneBy(['numcompte' => $values->numcompte]);//findOneBy(['numcompte' => $values->numcompte]recherche 
+            
+           $depot->setDate(new \DateTime());// on remplit la date du depot a l'instant t
+           $depot->setUser($Userconnecte);// liaison du caissier avec depot
+           $depot->setMontant($values->montant);
+           $depot->setSoldeactuele($values->soldeactuele);
+           $depot->setCompte($compte);
+           $compte->setSolde($compte->getSolde()+$depot->getMontant());// on rempli le nouveau solde du depot
+           $manager=$this->getDoctrine()->getManager();// recuperation de l'objet manager
+           $manager->persist($compte);// nous permet d'ecrire dans la table entreprise
+           $manager->persist($depot);//permet d'ecrire dans la table depot
+           $manager->flush();
+           $data = [
+               'status' => 201,
+               'message' => 'Le depot a bien été effectué '
+           ];
+           return new JsonResponse($data, 201);// on retourne l'objet JSON
 
-         $depot = new Depot();
-        
-           
-
-         $depot->setDate(new \DateTime());
-         $depot->setMontant($values->montant);
-         $depot->setSoldeactuele($values->soldeactuele);
-         ;
-         $entityManager->persist($depot);
-         $entityManager->flush();
-
-         return new Response('Depot reussie',Response::HTTP_CREATED); 
-
-
-    
-        
-
-
-
-}
+        // }
+        return new JsonResponse($data,  500);
+    }
 
 }
