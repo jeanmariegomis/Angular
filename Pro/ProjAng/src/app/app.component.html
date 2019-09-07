@@ -1,0 +1,122 @@
+<body>
+  <section id="container">
+
+     
+
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a href="index.html" class="logo"><b>Wa<span>ri</span></b></a>
+    
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="profile.html"><img src="assets/img/wari.jpg" class="img-circle" width="80"></a></p>
+          <h5 class="centered">Z@p Tr@nsfert</h5>
+         
+          <li class="sub-menu"  *ngIf="roles==='Super_admin'">
+            <a href="javascript:;">
+              <i class="fa fa-desktop"></i>
+              <span>Entreprises</span>
+              </a>
+            <ul class="sub">
+              <li><a routerLink="/ajou_entr">Ajouter Entreprise</a></li>
+              <li><a routerLink="/entreprises">Liste Entreprises</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu"  *ngIf="roles==='admin_Principal'">
+            <a href="javascript:;">
+              <i class="fa fa-cogs"></i>
+              <span>Admin Principal</span>
+              </a>
+            <ul class="sub">
+              <li><a routerLink="/ajou_uti">Ajouter Utilisateur</a></li>
+              <li><a href="calendar.html">Bloquer Utilisateur</a></li>
+              <li><a routerLink="/list_uti">Liste des Utilisateurs</a></li>
+              <li><a href="todo_list.html">Ajouter Compte Utilisateur</a></li>  
+              <li><a href="panels.html">Ajouter Caissier</a></li>
+            
+            </ul>
+          </li>
+          <li class="sub-menu"  *ngIf="roles==='admin'">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>Admin</span>
+              </a>
+            <ul class="sub">
+              <li><a href="blank.html">Envoi</a></li>
+              <li><a href="login.html">Retrait</a></li>            
+            </ul>
+          </li>     
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+            <div class="col-lg-9 main-chart">
+
+                <router-outlet></router-outlet>
+
+            </div>
+          <!-- /col-lg-9 END SECTION MIDDLE -->
+          <!-- **********************************************************************************************************************************************************
+              RIGHT SIDEBAR CONTENT
+              *********************************************************************************************************************************************************** -->
+              
+          <!-- /col-lg-3 -->
+        </div>
+        <!-- /row -->
+      </section>
+    </section>
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+          <!--
+            You are NOT allowed to delete the credit link to TemplateMag with free version.
+            You can delete the credit link only if you bought the pro version.
+            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+            Licensing information: https://templatemag.com/license/
+          -->
+          Created with Dashio template by <a href="https://templatemag.com/">TemplateMag</a>
+        </div>
+        <a href="index.html#" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+
+  
+</body>
+
